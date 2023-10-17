@@ -170,7 +170,6 @@ const Overview = () => {
           </Grid>
         </Grid>
       )}
-      <FloatingCart />
     </>
   );
 };

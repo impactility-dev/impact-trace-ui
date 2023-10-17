@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { dispatch } from 'store';
+import { openSnackbar } from 'store/reducers/snackbar';
+
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -60,18 +64,21 @@ const status = [
 // ==============================|| DASHBOARD - ANALYTICS ||============================== //
 
 const DashboardAnalytics = () => {
-  const theme = useTheme();
-  const [value, setValue] = useState('today');
-  const [slot, setSlot] = useState('week');
-  const [quantity, setQuantity] = useState('By volume');
 
-  const handleQuantity = (e: SelectChangeEvent) => {
-    setQuantity(e.target.value as string);
-  };
-
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-    if (newAlignment) setSlot(newAlignment);
-  };
+  useEffect(() => {
+    
+      dispatch(
+        openSnackbar({
+          open: true,
+          message: 'Your Profile is incomplete. Please complete your profile.',
+          variant: 'alert',
+          alert: {
+            color: 'error'
+          },
+          close: false
+        })
+      );
+      }, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={3}>

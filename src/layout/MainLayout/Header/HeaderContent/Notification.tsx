@@ -30,6 +30,7 @@ import { BellOutlined, CheckCircleOutlined, GiftOutlined, MessageOutlined, Setti
 
 // types
 import { ThemeMode } from 'types/config';
+import { useNavigate } from 'react-router';
 
 // sx styles
 const avatarSX = {
@@ -68,6 +69,7 @@ const Notification = () => {
     setOpen(false);
   };
 
+  const history = useNavigate();
   const iconBackColorOpen = theme.palette.mode === ThemeMode.DARK ? 'grey.200' : 'grey.300';
   const iconBackColor = theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'grey.100';
 
@@ -148,7 +150,9 @@ const Notification = () => {
                       }
                     }}
                   >
-                    <ListItemButton selected={read > 0}>
+                    <ListItemButton selected={read > 0} onClick={()=>(
+                      history('/apps/profiles/account/basic')
+        )}>
                       <ListItemAvatar>
                         <Avatar
                           sx={{
