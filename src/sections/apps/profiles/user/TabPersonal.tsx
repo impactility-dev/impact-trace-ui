@@ -1,22 +1,26 @@
-import { RefObject } from 'react';
-import { useOutletContext } from 'react-router';
+import { ChangeEvent, RefObject, useEffect, useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router';
 
 // material-ui
 import {
   Autocomplete,
+  Avatar,
   Box,
   Button,
   CardHeader,
   Chip,
   Divider,
   FormHelperText,
+  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
   Stack,
-  TextField
+  TextField,
+  Typography,
+  useTheme
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
@@ -33,7 +37,9 @@ import countries from 'data/countries';
 import MainCard from 'components/MainCard';
 
 // assets
-import { CloseOutlined } from '@ant-design/icons';
+import { CameraOutlined, CloseOutlined } from '@ant-design/icons';
+import theme from 'themes/theme';
+import { ThemeMode } from 'types/config';
 
 // styles & constant
 const ITEM_HEIGHT = 48;
@@ -108,40 +114,80 @@ const TabPersonal = () => {
 
   const inputRef = useInputRef();
 
+  const avatarImage = require.context('assets/images/users', true);
+
+  const theme = useTheme();
+  const [selectedImage, setSelectedImage] = useState<File | undefined>(undefined);
+  const [avatar, setAvatar] = useState<string | undefined>(avatarImage(`./default.png`));
+
+  useEffect(() => {
+    if (selectedImage) {
+      setAvatar(URL.createObjectURL(selectedImage));
+    }
+  }, [selectedImage]);
+
+  const history = useNavigate();
+
   return (
     <MainCard content={false} title="Personal Information" sx={{ '& .MuiInputLabel-root': { fontSize: '0.875rem' } }}>
+      <Grid item xs={12}>
+        <Stack spacing={2.5} alignItems="center">
+          <FormLabel
+            htmlFor="change-avtar"
+            sx={{
+              position: 'relative',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              '&:hover .MuiBox-root': { opacity: 1 },
+              cursor: 'pointer'
+            }}
+          >
+            <Avatar alt="Avatar 1" src={avatar} sx={{ width: 124, height: 124, border: '1px dashed' }} />
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                backgroundColor: theme.palette.mode === ThemeMode.DARK ? 'rgba(255, 255, 255, .75)' : 'rgba(0,0,0,.65)',
+                width: '100%',
+                height: '100%',
+                opacity: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Stack spacing={0.5} alignItems="center">
+                <CameraOutlined style={{ color: theme.palette.secondary.lighter, fontSize: '2rem' }} />
+                <Typography sx={{ color: 'secondary.lighter' }}>Upload</Typography>
+              </Stack>
+            </Box>
+          </FormLabel>
+          <TextField
+            type="file"
+            id="change-avtar"
+            placeholder="Outlined"
+            variant="outlined"
+            sx={{ display: 'none' }}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setSelectedImage(e.target.files?.[0])}
+          />
+        </Stack>
+      </Grid>
       <Formik
         initialValues={{
-          firstname: 'Stebin',
-          lastname: 'Ben',
-          email: 'stebin.ben@gmail.com',
-          dob: new Date('03-10-1993'),
+          firstname: 'Impact Trace',
+          lastname: 'Admin',
+          email: 'admin@impacttrace.com',
           countryCode: '+91',
-          contact: 9652364852,
-          designation: 'Full Stack Developer',
-          address: '3801 Chalk Butte Rd, Cut Bank, MT 59427, United States',
-          address1: '301 Chalk Butte Rd, Cut Bank, NY 96572, New York',
-          country: 'US',
-          state: 'California',
-          skill: [
-            'Adobe XD',
-            'Angular',
-            'Corel Draw',
-            'Figma',
-            'HTML',
-            'Illustrator',
-            'Javascript',
-            'Logo Design',
-            'Material UI',
-            'NodeJS',
-            'npm',
-            'Photoshop',
-            'React',
-            'Reduxjs & tooltit',
-            'SASS'
-          ],
-          note: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`,
-          submit: null
+          contact: '',
+          designation: 'Super Admin',
+          address: '',
+          address1: '',
+          country: 'IN',
+          state: '',
+          submit: null,
+          did: '',
+          website: '',
         }}
         validationSchema={Yup.object().shape({
           firstname: Yup.string().max(255).required('First Name is required.'),
@@ -179,7 +225,7 @@ const TabPersonal = () => {
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, setFieldValue, touched, values }) => (
+        {({ handleBlur, handleChange, handleSubmit, setFieldValue, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Box sx={{ p: 2.5 }}>
               <Grid container spacing={3}>
@@ -197,11 +243,6 @@ const TabPersonal = () => {
                       autoFocus
                       inputRef={inputRef}
                     />
-                    {touched.firstname && errors.firstname && (
-                      <FormHelperText error id="personal-first-name-helper">
-                        {errors.firstname}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -216,11 +257,6 @@ const TabPersonal = () => {
                       onChange={handleChange}
                       placeholder="Last Name"
                     />
-                    {touched.lastname && errors.lastname && (
-                      <FormHelperText error id="personal-last-name-helper">
-                        {errors.lastname}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -236,77 +272,21 @@ const TabPersonal = () => {
                       id="personal-email"
                       placeholder="Email Address"
                     />
-                    {touched.email && errors.email && (
-                      <FormHelperText error id="personal-email-helper">
-                        {errors.email}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Stack spacing={1.25}>
-                    <InputLabel htmlFor="personal-date">Date of Birth (+18)</InputLabel>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                      <Select
-                        fullWidth
-                        value={values.dob.getMonth().toString()}
-                        name="dob-month"
-                        onChange={(e: SelectChangeEvent<string>) => handleChangeMonth(e, values.dob, setFieldValue)}
-                      >
-                        <MenuItem value="0">January</MenuItem>
-                        <MenuItem value="1">February</MenuItem>
-                        <MenuItem value="2">March</MenuItem>
-                        <MenuItem value="3">April</MenuItem>
-                        <MenuItem value="4">May</MenuItem>
-                        <MenuItem value="5">June</MenuItem>
-                        <MenuItem value="6">July</MenuItem>
-                        <MenuItem value="7">August</MenuItem>
-                        <MenuItem value="8">September</MenuItem>
-                        <MenuItem value="9">October</MenuItem>
-                        <MenuItem value="10">November</MenuItem>
-                        <MenuItem value="11">December</MenuItem>
-                      </Select>
-                      <Select
-                        fullWidth
-                        value={values.dob.getDate().toString()}
-                        name="dob-date"
-                        onBlur={handleBlur}
-                        onChange={(e: SelectChangeEvent<string>) => handleChangeDay(e, values.dob, setFieldValue)}
-                        MenuProps={MenuProps}
-                      >
-                        {[
-                          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
-                        ].map((i) => (
-                          <MenuItem
-                            key={i}
-                            value={i}
-                            disabled={
-                              (values.dob.getMonth() === 1 && i > (values.dob.getFullYear() % 4 === 0 ? 29 : 28)) ||
-                              (values.dob.getMonth() % 2 !== 0 && values.dob.getMonth() < 7 && i > 30) ||
-                              (values.dob.getMonth() % 2 === 0 && values.dob.getMonth() > 7 && i > 30)
-                            }
-                          >
-                            {i}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                          sx={{ width: 1 }}
-                          views={['year']}
-                          value={values.dob}
-                          maxDate={maxDate}
-                          onChange={(newValue) => {
-                            setFieldValue('dob', newValue);
-                          }}
-                        />
-                      </LocalizationProvider>
-                    </Stack>
-                    {touched.dob && errors.dob && (
-                      <FormHelperText error id="personal-dob-helper">
-                        {errors.dob as String}
-                      </FormHelperText>
-                    )}
+                    <InputLabel htmlFor="personal-email">Decentralized Identity</InputLabel>
+                    <TextField
+                      type="text"
+                      fullWidth
+                      value={values.did}
+                      name="did"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      id="personal-email"
+                      placeholder="Enter did"
+                    />
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -337,11 +317,6 @@ const TabPersonal = () => {
                         placeholder="Contact Number"
                       />
                     </Stack>
-                    {touched.contact && errors.contact && (
-                      <FormHelperText error id="personal-contact-helper">
-                        {errors.contact}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -356,11 +331,6 @@ const TabPersonal = () => {
                       onChange={handleChange}
                       placeholder="Designation"
                     />
-                    {touched.designation && errors.designation && (
-                      <FormHelperText error id="personal-designation-helper">
-                        {errors.designation}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
               </Grid>
@@ -369,40 +339,31 @@ const TabPersonal = () => {
             <Divider />
             <Box sx={{ p: 2.5 }}>
               <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <Stack spacing={1.25}>
-                    <InputLabel htmlFor="personal-addrees1">Address 01</InputLabel>
+                    <InputLabel htmlFor="personal-addrees1">Address line 1</InputLabel>
                     <TextField
-                      multiline
-                      rows={3}
                       fullWidth
                       id="personal-addrees1"
                       value={values.address}
                       name="address"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Address 01"
+                      placeholder="Line 1"
                     />
-                    {touched.address && errors.address && (
-                      <FormHelperText error id="personal-address-helper">
-                        {errors.address}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <Stack spacing={1.25}>
-                    <InputLabel htmlFor="personal-addrees2">Address 02</InputLabel>
+                    <InputLabel htmlFor="personal-addrees2">Address line 2</InputLabel>
                     <TextField
-                      multiline
-                      rows={3}
                       fullWidth
                       id="personal-addrees2"
                       value={values.address1}
                       name="address1"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Address 02"
+                      placeholder="Line 2"
                     />
                   </Stack>
                 </Grid>
@@ -448,11 +409,6 @@ const TabPersonal = () => {
                         />
                       )}
                     />
-                    {touched.country && errors.country && (
-                      <FormHelperText error id="personal-country-helper">
-                        {errors.country}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -467,92 +423,26 @@ const TabPersonal = () => {
                       onChange={handleChange}
                       placeholder="State"
                     />
-                    {touched.state && errors.state && (
-                      <FormHelperText error id="personal-state-helper">
-                        {errors.state}
-                      </FormHelperText>
-                    )}
                   </Stack>
                 </Grid>
               </Grid>
-            </Box>
-            <CardHeader title="Skills" />
-            <Divider />
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', p: 2.5, m: 0 }} component="ul">
-              <Autocomplete
-                multiple
-                fullWidth
-                id="tags-outlined"
-                options={skills}
-                value={values.skill}
-                onBlur={handleBlur}
-                getOptionLabel={(label) => label}
-                onChange={(event, newValue) => {
-                  setFieldValue('skill', newValue);
-                }}
-                renderInput={(params) => <TextField {...params} name="skill" placeholder="Add Skills" />}
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip
-                      {...getTagProps({ index })}
-                      variant="combined"
-                      label={option}
-                      deleteIcon={<CloseOutlined style={{ fontSize: '0.75rem' }} />}
-                      sx={{ color: 'text.primary' }}
-                    />
-                  ))
-                }
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    p: 0,
-                    '& .MuiAutocomplete-tag': {
-                      m: 1
-                    },
-                    '& fieldset': {
-                      display: 'none'
-                    },
-                    '& .MuiAutocomplete-endAdornment': {
-                      display: 'none'
-                    },
-                    '& .MuiAutocomplete-popupIndicator': {
-                      display: 'none'
-                    }
-                  }
-                }}
-              />
-            </Box>
-            <CardHeader title="Note" />
-            <Divider />
-            <Box sx={{ p: 2.5 }}>
-              <TextField
-                multiline
-                rows={5}
-                fullWidth
-                value={values.note}
-                name="note"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                id="personal-note"
-                placeholder="Note"
-              />
-              {touched.note && errors.note && (
-                <FormHelperText error id="personal-note-helper">
-                  {errors.note}
-                </FormHelperText>
-              )}
               <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={2} sx={{ mt: 2.5 }}>
-                <Button variant="outlined" color="secondary">
-                  Cancel
-                </Button>
-                <Button disabled={isSubmitting || Object.keys(errors).length !== 0} type="submit" variant="contained">
-                  Save
-                </Button>
-              </Stack>
-            </Box>
+                <Button variant="outlined" color="secondary" onClick={()=>(
+                  history('/apps/profiles/account/basic')
+                )} >
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" onClick={()=>(
+                  history('/apps/profiles/account/basic')
+                )} >
+                Save
+              </Button>
+            </Stack>
+          </Box>
           </form>
         )}
-      </Formik>
-    </MainCard>
+    </Formik>
+    </MainCard >
   );
 };
 

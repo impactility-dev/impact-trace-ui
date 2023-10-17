@@ -11,7 +11,10 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   Stack,
-  Typography
+  Typography,
+  OutlinedInput,
+  IconButton,
+  InputAdornment
 } from '@mui/material';
 
 // third-party
@@ -23,52 +26,35 @@ import Avatar from 'components/@extended/Avatar';
 import LinearWithLabel from 'components/@extended/progress/LinearWithLabel';
 
 // assets
-import { AimOutlined, EnvironmentOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import { AimOutlined, EnvironmentOutlined, EyeInvisibleOutlined, EyeOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import { values } from 'lodash';
+import { useState } from 'react';
+
+import useAuth from 'hooks/useAuth';
 
 const avatarImage = require.context('assets/images/users', true);
 
 // ==============================|| ACCOUNT PROFILE - BASIC ||============================== //
 
 const TabProfile = () => {
-  const matchDownMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
+  const { user } = useAuth();
+
+  const matchDownMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} sm={5} md={4} xl={3}>
+      <Grid item xs={12}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <MainCard>
+          <Grid item xs={12} sm={3}>
+            <MainCard sx={{ height: '100%' }}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <Stack direction="row" justifyContent="flex-end">
-                    <Chip label="Pro" size="small" color="primary" />
-                  </Stack>
                   <Stack spacing={2.5} alignItems="center">
                     <Avatar alt="Avatar 1" size="xl" src={avatarImage(`./default.png`)} />
                     <Stack spacing={0.5} alignItems="center">
-                      <Typography variant="h5">Anshan H.</Typography>
-                      <Typography color="secondary">Project Manager</Typography>
-                    </Stack>
-                  </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                  <Divider />
-                </Grid>
-                <Grid item xs={12}>
-                  <Stack direction="row" justifyContent="space-around" alignItems="center">
-                    <Stack spacing={0.5} alignItems="center">
-                      <Typography variant="h5">86</Typography>
-                      <Typography color="secondary">Post</Typography>
-                    </Stack>
-                    <Divider orientation="vertical" flexItem />
-                    <Stack spacing={0.5} alignItems="center">
-                      <Typography variant="h5">40</Typography>
-                      <Typography color="secondary">Project</Typography>
-                    </Stack>
-                    <Divider orientation="vertical" flexItem />
-                    <Stack spacing={0.5} alignItems="center">
-                      <Typography variant="h5">4.5K</Typography>
-                      <Typography color="secondary">Members</Typography>
+                      <Typography variant="h5">Impact Trace Admin</Typography>
+                      <Typography color="secondary">Super Admin</Typography>
                     </Stack>
                   </Stack>
                 </Grid>
@@ -82,15 +68,7 @@ const TabProfile = () => {
                         <MailOutlined />
                       </ListItemIcon>
                       <ListItemSecondaryAction>
-                        <Typography align="right">anshan.dh81@gmail.com</Typography>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <PhoneOutlined />
-                      </ListItemIcon>
-                      <ListItemSecondaryAction>
-                        <Typography align="right">(+1-876) 8654 239 581</Typography>
+                        <Typography align="right">{user?.email}</Typography>
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem>
@@ -98,7 +76,7 @@ const TabProfile = () => {
                         <AimOutlined />
                       </ListItemIcon>
                       <ListItemSecondaryAction>
-                        <Typography align="right">New York</Typography>
+                        <Typography align="right">Pune</Typography>
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem>
@@ -116,75 +94,21 @@ const TabProfile = () => {
               </Grid>
             </MainCard>
           </Grid>
-          <Grid item xs={12}>
-            <MainCard title="Skills">
-              <Grid container spacing={1.25}>
-                <Grid item xs={6}>
-                  <Typography color="secondary">Junior</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <LinearWithLabel value={30} />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography color="secondary">UX Reseacher</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <LinearWithLabel value={80} />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography color="secondary">Wordpress</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <LinearWithLabel value={90} />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography color="secondary">HTML</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <LinearWithLabel value={30} />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography color="secondary">Graphic Design</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <LinearWithLabel value={95} />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography color="secondary">Code Style</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <LinearWithLabel value={75} />
-                </Grid>
-              </Grid>
-            </MainCard>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} sm={7} md={8} xl={9}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <MainCard title="About me">
-              <Typography color="secondary">
-                Hello, I’m Anshan Handgun Creative Graphic Designer & User Experience Designer based in Website, I create digital Products a
-                more Beautiful and usable place. Morbid accusant ipsum. Nam nec tellus at.
-              </Typography>
-            </MainCard>
-          </Grid>
-          <Grid item xs={12}>
-            <MainCard title="Personal Details">
+          <Grid item xs={12} sm={9}>
+            <MainCard sx={{ height: '100%' }} title="Personal Details">
               <List sx={{ py: 0 }}>
                 <ListItem divider={!matchDownMD}>
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Full Name</Typography>
-                        <Typography>Anshan Handgun</Typography>
+                        <Typography color="secondary">First Name</Typography>
+                        <Typography>Impact Trace</Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Father Name</Typography>
-                        <Typography>Mr. Deepen Handgun</Typography>
+                        <Typography color="secondary">Last Name</Typography>
+                        <Typography>Admin</Typography>
                       </Stack>
                     </Grid>
                   </Grid>
@@ -193,16 +117,16 @@ const TabProfile = () => {
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Phone</Typography>
+                        <Typography color="secondary">Designation</Typography>
                         <Typography>
-                          (+1-876) <PatternFormat value={8654239581} displayType="text" type="text" format="#### ### ###" />
+                          Super Admin
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
                         <Typography color="secondary">Country</Typography>
-                        <Typography>New York</Typography>
+                        <Typography>India</Typography>
                       </Stack>
                     </Grid>
                   </Grid>
@@ -212,117 +136,43 @@ const TabProfile = () => {
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
                         <Typography color="secondary">Email</Typography>
-                        <Typography>anshan.dh81@gmail.com</Typography>
+                        <Typography>admin@impacttrace.com</Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Zip Code</Typography>
-                        <Typography>956 754</Typography>
+                        <Typography color="secondary">Address</Typography>
+                        <Typography>Street 110-B Kalians Bag, Dewan, M.P. New York</Typography>
                       </Stack>
                     </Grid>
                   </Grid>
                 </ListItem>
                 <ListItem>
-                  <Stack spacing={0.5}>
-                    <Typography color="secondary">Address</Typography>
-                    <Typography>Street 110-B Kalians Bag, Dewan, M.P. New York</Typography>
+                  <Stack spacing={0.5} sx={{width: '100%'}}>
+                    <Typography color="secondary">Decentralized Identity</Typography>
+                    <OutlinedInput
+                      id="outlined-adornment-password"
+                      type={showPassword ? 'text' : 'password'}
+                      contentEditable={false}
+                      readOnly={true}
+                      fullWidth
+                      value={'did:polygonid:polygon:mumbai:2qD9iHSw8UDrSV2kW2bimVKqwmUFwVkan8rhth3n3L'}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword(!showPassword)}
+                            onMouseDown={() => setShowPassword(!showPassword)}
+                            edge="end"
+                            color="secondary"
+                          >
+                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
                   </Stack>
-                </ListItem>
-              </List>
-            </MainCard>
-          </Grid>
-          <Grid item xs={12}>
-            <MainCard title="Education">
-              <List sx={{ py: 0 }}>
-                <ListItem divider>
-                  <Grid container spacing={matchDownMD ? 0.5 : 3}>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Master Degree (Year)</Typography>
-                        <Typography>2014-2017</Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Institute</Typography>
-                        <Typography>-</Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-                <ListItem divider>
-                  <Grid container spacing={matchDownMD ? 0.5 : 3}>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Bachelor (Year)</Typography>
-                        <Typography>2011-2013</Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Institute</Typography>
-                        <Typography>Imperial College London</Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-                <ListItem>
-                  <Grid container spacing={matchDownMD ? 0.5 : 3}>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">School (Year)</Typography>
-                        <Typography>2009-2011</Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Institute</Typography>
-                        <Typography>School of London, England</Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-              </List>
-            </MainCard>
-          </Grid>
-          <Grid item xs={12}>
-            <MainCard title="Emplyment">
-              <List sx={{ py: 0 }}>
-                <ListItem divider>
-                  <Grid container spacing={matchDownMD ? 0.5 : 3}>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Senior UI/UX designer (Year)</Typography>
-                        <Typography>2019-Current</Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Job Responsibility</Typography>
-                        <Typography>
-                          Perform task related to project manager with the 100+ team under my observation. Team management is key role in
-                          this company.
-                        </Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-                <ListItem>
-                  <Grid container spacing={matchDownMD ? 0.5 : 3}>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Trainee cum Project Manager (Year)</Typography>
-                        <Typography>2017-2019</Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={0.5}>
-                        <Typography color="secondary">Job Responsibility</Typography>
-                        <Typography>Team management is key role in this company.</Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
+
                 </ListItem>
               </List>
             </MainCard>

@@ -62,6 +62,14 @@ const Partners = Loadable(lazy(()=> import('pages/apps/partners/index')));
 //Production Plant
 const ProductionPlant = Loadable(lazy(()=> import('pages/apps/production-plant/index')));
 
+//Sites
+const Sites = Loadable(lazy(()=> import('pages/apps/sites/index')));
+
+//Digital Passport
+const DigitalPassport = Loadable(lazy(()=> import('pages/apps/digital-passport/index')));
+
+
+
 // render - forms & tables
 const FormsValidation = Loadable(lazy(() => import('pages/forms/validation')));
 const FormsWizard = Loadable(lazy(() => import('pages/forms/wizard')));
@@ -138,6 +146,10 @@ const MainRoutes = {
         </AuthGuard>
       ),
       children: [
+        {
+          path: '/',
+          element: <DashboardDefault />
+        },
         {
           path: 'dashboard',
           children: [
@@ -329,6 +341,14 @@ const MainRoutes = {
             {
               path: 'production-plant',
               element: <ProductionPlant />
+            },
+            {
+              path: 'sites',
+              element: <Sites />
+            },
+            {
+              path: 'digital-passport',
+              element: <DigitalPassport />
             }
           ]
         },

@@ -40,7 +40,7 @@ const HeaderContent = () => {
       {/* {!downLG && localization} */}
       {downLG && <Box sx={{ width: '100%', ml: 1 }} />}
 
-      {/* <Notification /> */}
+      <Notification />
       {/* <Message /> */}
       {/* <Customization /> */}
       {!downLG && <Profile />}

@@ -265,7 +265,7 @@ function ReactTable({ columns, data }: Props) {
         sx={{ '& .MuiDialog-paper': { p: 0 }, transition: 'transform 225ms' }}
         aria-describedby="alert-dialog-slide-description"
       >
-        <AddCustomer customer={null} onCancel={handleAdd} />
+        <AddCustomer onCancel={handleAdd} />
       </Dialog>
     </>
   );

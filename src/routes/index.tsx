@@ -9,22 +9,12 @@ import LoginRoutes from './LoginRoutes';
 import MainRoutes from './MainRoutes';
 
 // render - landing page
-const PagesLanding = Loadable(lazy(() => import('pages/landing')));
+const PagesLanding = Loadable(lazy(() => import('pages/dashboard/default')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
 export default function ThemeRoutes() {
   return useRoutes([
-    {
-      path: '/',
-      element: <CommonLayout layout="landing" />,
-      children: [
-        {
-          path: '/',
-          element: <PagesLanding />
-        }
-      ]
-    },
     LoginRoutes,
     ComponentsRoutes,
     MainRoutes

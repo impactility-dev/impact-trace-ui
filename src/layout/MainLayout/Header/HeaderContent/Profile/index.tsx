@@ -110,8 +110,7 @@ const Profile = () => {
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="xs" />
           <Typography variant="subtitle1">
-            {/* {user?.name} */}
-            Impactility Admin
+            {user?.name}
             </Typography>
         </Stack>
       </ButtonBase>
@@ -155,59 +154,18 @@ const Profile = () => {
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                           <Stack>
                             <Typography variant="h6">
-                              {/* {user?.name} */}
-                              Impactility Admin
+                              {user?.name}
                               </Typography>
                             <Typography variant="body2" color="textSecondary">
-                              UI/UX Designer
+                              Super Admin
                             </Typography>
                           </Stack>
                         </Stack>
                       </Grid>
-                      <Grid item>
-                        <Tooltip title="Logout">
-                          <IconButton size="large" sx={{ color: 'text.primary' }} onClick={handleLogout}>
-                            <LogoutOutlined />
-                          </IconButton>
-                        </Tooltip>
-                      </Grid>
                     </Grid>
                   </CardContent>
 
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
-                      <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize'
-                        }}
-                        icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Profile"
-                        {...a11yProps(0)}
-                      />
-                      <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize'
-                        }}
-                        icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Setting"
-                        {...a11yProps(1)}
-                      />
-                    </Tabs>
-                  </Box>
-                  <TabPanel value={value} index={0} dir={theme.direction}>
-                    <ProfileTab handleLogout={handleLogout} />
-                  </TabPanel>
-                  <TabPanel value={value} index={1} dir={theme.direction}>
-                    <SettingTab />
-                  </TabPanel>
+                  <ProfileTab handleLogout={handleLogout} />
                 </MainCard>
               </ClickAwayListener>
             </Paper>

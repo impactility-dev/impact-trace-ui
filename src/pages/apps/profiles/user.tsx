@@ -19,15 +19,11 @@ const UserProfile = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <ProfileCard focusInput={focusInput} />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <ProfileTabs focusInput={focusInput} />
-      </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid item xs={0} sm={1}  />
+      <Grid item xs={12} sm={10}  >
         <Outlet context={inputRef} />
       </Grid>
+      <Grid item xs={0} sm={1}  />
     </Grid>
   );
 };

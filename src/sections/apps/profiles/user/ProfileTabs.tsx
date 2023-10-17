@@ -52,52 +52,6 @@ const ProfileTabs = ({ focusInput }: Props) => {
     <MainCard>
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <Stack direction="row" justifyContent="flex-end">
-            <IconButton
-              variant="light"
-              color="secondary"
-              id="basic-button"
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
-              <MoreOutlined />
-            </IconButton>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button'
-              }}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right'
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-            >
-              <MenuItem
-                component={Link}
-                to="/apps/profiles/user/personal"
-                onClick={() => {
-                  handleClose();
-                  setTimeout(() => {
-                    focusInput();
-                  });
-                }}
-              >
-                Edit
-              </MenuItem>
-              <MenuItem onClick={handleClose} disabled>
-                Delete
-              </MenuItem>
-            </Menu>
-          </Stack>
           <Stack spacing={2.5} alignItems="center">
             <FormLabel
               htmlFor="change-avtar"
@@ -138,39 +92,9 @@ const ProfileTabs = ({ focusInput }: Props) => {
               sx={{ display: 'none' }}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setSelectedImage(e.target.files?.[0])}
             />
-            <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">Stebin Ben</Typography>
-              <Typography color="secondary">Full Stack Developer</Typography>
-            </Stack>
-            <Stack direction="row" spacing={3} sx={{ '& svg': { fontSize: '1.15rem', cursor: 'pointer' } }}>
-              <TwitterSquareFilled style={{ color: twitterColor }} />
-              <FacebookFilled style={{ color: facebookColor }} />
-              <LinkedinFilled style={{ color: linkedInColor }} />
-            </Stack>
           </Stack>
         </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
-        <Grid item xs={12} sm={6} md={12}>
-          <Stack direction="row" justifyContent="space-around" alignItems="center">
-            <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">86</Typography>
-              <Typography color="secondary">Post</Typography>
-            </Stack>
-            <Divider orientation="vertical" flexItem />
-            <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">40</Typography>
-              <Typography color="secondary">Project</Typography>
-            </Stack>
-            <Divider orientation="vertical" flexItem />
-            <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">4.5K</Typography>
-              <Typography color="secondary">Members</Typography>
-            </Stack>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <ProfileTab />
-        </Grid>
       </Grid>
     </MainCard>
   );

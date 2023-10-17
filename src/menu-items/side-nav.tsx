@@ -99,14 +99,14 @@ const sidenav: NavItemType[] = [
     title: <FormattedMessage id="Digital Passport" />,
     type: 'item',
     icon: DocumentScannerOutlinedIcon,
-    url: '/dashboard/analytics',
+    url: '/apps/digital-passport',
   }, 
   {
     id: 'sites',
     title: <FormattedMessage id="Sites" />,
     type: 'item',
     icon: PlaceOutlinedIcon,
-    url: '/dashboard/analytics',
+    url: '/apps/sites',
   },
 ];
 
