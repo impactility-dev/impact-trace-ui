@@ -110,7 +110,8 @@ const Profile = () => {
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="xs" />
           <Typography variant="subtitle1">
-            {user?.name}
+            {/* {user?.name} */}
+            Impact Trace Admin
             </Typography>
         </Stack>
       </ButtonBase>
@@ -154,7 +155,8 @@ const Profile = () => {
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                           <Stack>
                             <Typography variant="h6">
-                              {user?.name}
+                              {/* {user?.name} */}
+                              Impact Trace Admin
                               </Typography>
                             <Typography variant="body2" color="textSecondary">
                               Super Admin

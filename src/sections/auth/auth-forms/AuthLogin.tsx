@@ -51,8 +51,10 @@ const AuthLogin = ({ isDemo = false }: { isDemo?: boolean }) => {
     <>
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
+          // email: 'info@codedthemes.com',
+          // password: '123456',
+          email: '',
+          password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -61,7 +63,7 @@ const AuthLogin = ({ isDemo = false }: { isDemo?: boolean }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            await login(values.email, values.password);
+            await login('info@codedthemes.com', '123456');
             if (scriptedRef.current) {
               setStatus({ success: true });
               setSubmitting(false);

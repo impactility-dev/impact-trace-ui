@@ -18,7 +18,8 @@ interface Props {
 // ==============================|| AUTHENTICATION - WRAPPER ||============================== //
 
 const AuthWrapper = ({ children }: Props) => (
-  <Box sx={{ minHeight: '100vh', backgroundColor: '#EEEEEE' }}>
+  <Box sx={{ minHeight: '100vh'}}>
+    {/* <AuthBackground /> */}
     <Grid
       container
       direction="column"

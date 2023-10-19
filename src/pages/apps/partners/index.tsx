@@ -318,13 +318,13 @@ const Partners = () => {
   const columns = useMemo(
     () => [
       {
-        Header: 'Invoice Id',
+        Header: 'Sr. No',
         accessor: 'id',
         className: 'cell-center',
         disableFilters: true
       },
       {
-        Header: 'User Name',
+        Header: 'Business Name',
         accessor: 'customer_name',
         disableFilters: true,
         Cell: ({ row }: { row: Row }) => {
@@ -354,15 +354,15 @@ const Partners = () => {
         disableFilters: true
       },
       {
-        Header: 'Create Date',
+        Header: 'Registration Number',
         accessor: 'date'
       },
       {
-        Header: 'Due Date',
+        Header: 'Nature of Business',
         accessor: 'due_date'
       },
       {
-        Header: 'Quantity',
+        Header: 'Verifiers',
         accessor: 'quantity',
         disableFilters: true
       },
@@ -374,7 +374,7 @@ const Partners = () => {
         Cell: ({ value }: { value: string }) => {
           switch (value) {
             case 'Cancelled':
-              return <Chip color="error" label="Cancelled" size="small" variant="light" />;
+              return <Chip color="error" label="Removed" size="small" variant="light" />;
             case 'Paid':
               return <Chip color="success" label="Paid" size="small" variant="light" />;
             case 'Unpaid':
