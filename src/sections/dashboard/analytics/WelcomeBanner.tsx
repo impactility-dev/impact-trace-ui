@@ -33,28 +33,25 @@ const WelcomeBanner = () => {
             <Typography variant="h2" color={theme.palette.background.paper}>
               Welcome to Impact Trace
             </Typography>
-            <Typography variant="h6" color={theme.palette.background.paper}>
-              The purpose of a product update is to add new features, fix bugs or improve the performance of the product.
-            </Typography>
-            <Box>
+            {/* <Box>
               <Button
                 variant="outlined"
                 color="secondary"
                 sx={{ color: theme.palette.background.paper, borderColor: theme.palette.background.paper }}
               >
-                View full statistic
+                Learn More
               </Button>
-            </Box>
+            </Box> */}
           </Stack>
         </Grid>
-        <Grid item sm={6} xs={12} sx={{ display: { xs: 'none', sm: 'initial' } }}>
+        {/* <Grid item sm={6} xs={12} sx={{ display: { xs: 'none', sm: 'initial' } }}>
           <Stack sx={{ position: 'relative', pr: { sm: 3, md: 8 } }} justifyContent="center" alignItems="flex-end">
             <img src={WelcomeImage} alt="Welcome" />
             <Box sx={{ position: 'absolute', bottom: 0, right: '10%' }}>
               <img src={WelcomeImageArrow} alt="Welcome Arrow" />
             </Box>
           </Stack>
-        </Grid>
+        </Grid> */}
       </Grid>
     </MainCard>
   );
