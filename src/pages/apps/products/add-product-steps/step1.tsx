@@ -19,12 +19,12 @@ export default function Step1() {
                 <TextField placeholder="Enter product name" fullWidth />
               </Grid>
               <Grid item xs={12}>
-                <InputLabel sx={{ mb: 1 }}>Model No.</InputLabel>
-                <TextField placeholder="Enter your model number" fullWidth />
+                <InputLabel sx={{ mb: 1 }}>Product Subname</InputLabel>
+                <TextField placeholder="Enter product subname" fullWidth />
               </Grid>
               <Grid item xs={12}>
                 <InputLabel sx={{ mb: 1 }}>Category</InputLabel>
-                <TextField placeholder="Enter your category" fullWidth />
+                <TextField placeholder="Enter product category" fullWidth />
               </Grid>
               <Grid item xs={12}>
                 <InputLabel sx={{ mb: 1 }}>Product Description</InputLabel>
@@ -47,17 +47,12 @@ export default function Step1() {
                       files: yup.mixed().required('Avatar is a required.')
                     })}
                   >
-                    {({ values, handleSubmit, setFieldValue, touched, errors }) => (
+                    {({ values, handleSubmit, setFieldValue}) => (
                       <form onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
                           <Grid item xs={12}>
                             <Stack spacing={1.5} alignItems="center">
-                              <UploadAvatar setFieldValue={setFieldValue} file={values.files} error={touched.files && !!errors.files} />
-                              {touched.files && errors.files && (
-                                <FormHelperText error id="standard-weight-helper-text-password-login">
-                                  {errors.files}
-                                </FormHelperText>
-                              )}
+                              <UploadAvatar setFieldValue={setFieldValue} file={values.files} />
                               <Stack spacing={0}>
                                 <Typography align="center" variant="caption" color="secondary">
                                   Allowed 'image/*'
