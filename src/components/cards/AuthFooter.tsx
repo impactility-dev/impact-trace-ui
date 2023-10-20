@@ -17,7 +17,7 @@ const AuthFooter = () => {
       >
         <Typography variant="subtitle2" color="secondary" component="span">
           This site is protected by{' '}
-          <Typography component={Link} variant="subtitle2" href="#mantis-privacy" target="_blank" underline="hover">
+          <Typography component={Link} variant="subtitle2" href="#"  target="_self" underline="hover">
             Privacy Policy
           </Typography>
         </Typography>
@@ -27,8 +27,8 @@ const AuthFooter = () => {
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
+            href="#"
+            target="_self"
             underline="hover"
           >
             Terms and Conditions
@@ -37,8 +37,8 @@ const AuthFooter = () => {
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
+            href="#"
+            target="_self"
             underline="hover"
           >
             Privacy Policy
@@ -47,8 +47,8 @@ const AuthFooter = () => {
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
+            href="#"
+            target="_self"
             underline="hover"
           >
             CA Privacy Notice
