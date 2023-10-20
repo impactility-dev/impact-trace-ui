@@ -32,14 +32,13 @@ const AppInvoiceList = Loadable(lazy(() => import('pages/apps/invoice/list')));
 const AppInvoiceDetails = Loadable(lazy(() => import('pages/apps/invoice/details')));
 const AppInvoiceEdit = Loadable(lazy(() => import('pages/apps/invoice/edit')));
 
-const UserProfile = Loadable(lazy(() => import('pages/apps/profiles/user')));
-const UserTabPersonal = Loadable(lazy(() => import('sections/apps/profiles/user/TabPersonal')));
-const UserTabPayment = Loadable(lazy(() => import('sections/apps/profiles/user/TabPayment')));
-const UserTabPassword = Loadable(lazy(() => import('sections/apps/profiles/user/TabPassword')));
-const UserTabSettings = Loadable(lazy(() => import('sections/apps/profiles/user/TabSettings')));
+const TabEditUser = Loadable(lazy(() => import('sections/apps/profiles/edit/TabEditUser')));
+const TabEditOrganisation = Loadable(lazy(() => import('sections/apps/profiles/edit/TabEditOrganisation')));
+
 
 const AccountProfile = Loadable(lazy(() => import('pages/apps/profiles/account')));
 const AccountTabProfile = Loadable(lazy(() => import('sections/apps/profiles/account/TabProfile')));
+const AccountTabOrganisation = Loadable(lazy(() => import('sections/apps/profiles/account/TabOrganisation')));
 const AccountTabPersonal = Loadable(lazy(() => import('sections/apps/profiles/account/TabPersonal')));
 const AccountTabAccount = Loadable(lazy(() => import('sections/apps/profiles/account/TabAccount')));
 const AccountTabPassword = Loadable(lazy(() => import('sections/apps/profiles/account/TabPassword')));
@@ -251,8 +250,12 @@ const MainRoutes = {
                   element: <AccountProfile />,
                   children: [
                     {
-                      path: 'basic',
+                      path: 'user',
                       element: <AccountTabProfile />
+                    },
+                    {
+                      path: 'organisation',
+                      element: <AccountTabOrganisation />
                     },
                     {
                       path: 'personal',
@@ -277,24 +280,15 @@ const MainRoutes = {
                   ]
                 },
                 {
-                  path: 'user',
-                  element: <UserProfile />,
+                  path: 'edit',
                   children: [
                     {
-                      path: 'personal',
-                      element: <UserTabPersonal />
+                      path: 'user',
+                      element: <TabEditUser />
                     },
                     {
-                      path: 'payment',
-                      element: <UserTabPayment />
-                    },
-                    {
-                      path: 'password',
-                      element: <UserTabPassword />
-                    },
-                    {
-                      path: 'settings',
-                      element: <UserTabSettings />
+                      path: 'organisation',
+                      element: <TabEditOrganisation />
                     }
                   ]
                 }

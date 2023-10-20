@@ -14,8 +14,7 @@ import {
   Typography,
   OutlinedInput,
   IconButton,
-  InputAdornment,
-  Box
+  InputAdornment
 } from '@mui/material';
 
 // third-party
@@ -33,7 +32,7 @@ import { useState } from 'react';
 
 import useAuth from 'hooks/useAuth';
 
-const avatarImage = require.context('assets/images/users', true);
+const avatarImage = require.context('assets/images/logo', true);
 
 // ==============================|| ACCOUNT PROFILE - BASIC ||============================== //
 
@@ -52,15 +51,23 @@ const TabProfile = () => {
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <Stack spacing={2.5} alignItems="center">
-                    <Avatar alt="Avatar 1" size="xl" src={avatarImage(`./default.png`)} />
+                    <Avatar sx={{border: '1px solid #E9E9E9'}} alt="Avatar 1" size='xl' src={avatarImage(`./Impactility.png`)} />
                   </Stack>
                 </Grid>
                 <Grid item xs={12}>
                   <Divider />
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="h5" mb={2}>Profile Details</Typography>
+                  <Typography variant="h5" mb={2}>Contact Details</Typography>
                   <List component="nav" aria-label="main mailbox folders" sx={{ py: 0, '& .MuiListItem-root': { p: 0, py: 1 } }}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <UserOutlined />
+                      </ListItemIcon>
+                      <ListItemSecondaryAction>
+                        <Typography align="right">John Doe</Typography>
+                      </ListItemSecondaryAction>
+                    </ListItem>
                     <ListItem>
                       <ListItemIcon>
                         <MailOutlined />
@@ -89,14 +96,14 @@ const TabProfile = () => {
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">First Name</Typography>
-                        <Typography>John</Typography>
+                        <Typography color="secondary">Organisation Legal Name</Typography>
+                        <Typography>Impactitlity Pvt Ltd</Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Last Name</Typography>
-                        <Typography>Doe</Typography>
+                        <Typography color="secondary">Type of Organisation</Typography>
+                        <Typography>Lorem Ipsum</Typography>
                       </Stack>
                     </Grid>
                   </Grid>
@@ -105,16 +112,32 @@ const TabProfile = () => {
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Role</Typography>
-                        <Box sx={{ width: '100%' }} >
-                          <Chip sx={{ width: 'fit-content', mx: '2px' }} label="Super Admin" />
-                        </Box>
+                        <Typography color="secondary">Corporate Identity Number</Typography>
+                        <Typography>
+                          27AABCI1234P1Z5
+                        </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={0.5}>
-                        <Typography color="secondary">Email</Typography>
-                        <Typography>admin@impacttrace.com</Typography>
+                        <Typography color="secondary">Country</Typography>
+                        <Typography>India</Typography>
+                      </Stack>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+                <ListItem divider={!matchDownMD}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} md={6}>
+                      <Stack spacing={0.5}>
+                        <Typography color="secondary">Website</Typography>
+                        <Link href="https://impactility.com" target='_blank'>https://impactility.com</Link>
+                      </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Stack spacing={0.5}>
+                        <Typography color="secondary">Head Office Address</Typography>
+                        <Typography>Street 110-B Kalians Bag, Dewan, M.P. New York</Typography>
                       </Stack>
                     </Grid>
                   </Grid>

@@ -19,14 +19,17 @@ import { ThemeDirection } from 'types/config';
 
 interface Props {
   focusInput: () => void;
+  url: string;
+  title: string;
+  percentage: number;
 }
 
-const ProfileCard = ({ focusInput }: Props) => {
+const ProfileCard = ({ focusInput, url, title, percentage }: Props) => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <MainCard border={false} content={false} sx={{ bgcolor: 'primary.lighter', position: 'relative' }}>
+    <MainCard border={false} content={false} sx={{ bgcolor: 'primary.lighter', position: 'relative', marginBottom: '16px' }}>
       <Box
         sx={{
           position: 'absolute',
@@ -46,10 +49,10 @@ const ProfileCard = ({ focusInput }: Props) => {
         <Grid item>
           <Stack direction="row" spacing={matchDownSM ? 1 : 2} alignItems="center">
             <Box sx={{ ml: { xs: 0, sm: 1 } }}>
-              <ProfileRadialChart />
+              <ProfileRadialChart percentage={percentage} />
             </Box>
             <Stack spacing={0.75}>
-              <Typography variant="h5">Edit Your Profile</Typography>
+              <Typography variant="h5">{title}</Typography>
               <Typography variant="body2" color="secondary">
                 Complete your profile to unlock all features
               </Typography>
@@ -57,8 +60,8 @@ const ProfileCard = ({ focusInput }: Props) => {
           </Stack>
         </Grid>
         <Grid item sx={{ mx: matchDownSM ? 2 : 3, my: matchDownSM ? 1 : 0, mb: matchDownSM ? 2 : 0 }} xs={matchDownSM ? 12 : 'auto'}>
-          <Button variant="contained" fullWidth={matchDownSM} component={Link} to="/apps/profiles/user/personal" onClick={focusInput}>
-            Edit Your Profile
+          <Button variant="contained" fullWidth={matchDownSM} component={Link} to={url} onClick={focusInput}>
+            {title}
           </Button>
         </Grid>
       </Grid>
