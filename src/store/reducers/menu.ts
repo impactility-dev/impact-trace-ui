@@ -5,6 +5,7 @@ import axios from 'utils/axios';
 
 // types
 import { MenuProps } from 'types/menu';
+import { MENU } from 'data/menu';
 
 // initial state
 const initialState: MenuProps = {
@@ -13,15 +14,15 @@ const initialState: MenuProps = {
   selectedID: null,
   drawerOpen: false,
   componentDrawerOpen: true,
-  menu: {},
+  menu: MENU,
   error: null
 };
 
 // ==============================|| SLICE - MENU ||============================== //
 
 export const fetchMenu = createAsyncThunk('', async () => {
-  const response = await axios.get('/api/menu/dashboard');
-  return response.data;
+  // const response = await axios.get('/api/menu/dashboard');
+  return MENU;
 });
 
 const menu = createSlice({
@@ -53,11 +54,11 @@ const menu = createSlice({
     }
   },
 
-  extraReducers(builder) {
-    builder.addCase(fetchMenu.fulfilled, (state, action) => {
-      state.menu = action.payload.dashboard;
-    });
-  }
+  // extraReducers(builder) {
+  //   builder.addCase(fetchMenu.fulfilled, (state, action) => {
+  //     state.menu = action.payload.dashboard;
+  //   });
+  // }
 });
 
 export default menu.reducer;
