@@ -63,7 +63,9 @@ const AuthLogin = ({ isDemo = false }: { isDemo?: boolean }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            await login('info@codedthemes.com', '123456');
+            const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZTg2ODA5MjgzZTI4Yjk2ZDJkMzg1MzciLCJpYXQiOjE2OTgwNTM5MzcsImV4cCI6MTk5ODE0MDMzN30.1hAXD0iFh4qf30vkM2gaQyttQ_4wFwWJqbQH-zedfL8`
+            await login('','',token)
+            // await login('info@codedthemes.com', '123456');
             if (scriptedRef.current) {
               setStatus({ success: true });
               setSubmitting(false);
@@ -76,6 +78,9 @@ const AuthLogin = ({ isDemo = false }: { isDemo?: boolean }) => {
               setSubmitting(false);
             }
           }
+          //setSessionFn(token);
+
+          // window.location.reload()
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
