@@ -30,9 +30,9 @@ const ProfileTab = ({ handleLogout }: Props) => {
 
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
-      <ListItemButton selected={selectedIndex === 0} onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+      {/* <ListItemButton selected={selectedIndex === 0} onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         handleListItemClick(event, 0)
-        history('/apps/profiles/user/personal')
+        history('/apps/profiles/edit/organisation')
         setSelectedIndex(0);
       }
       }>
@@ -40,17 +40,17 @@ const ProfileTab = ({ handleLogout }: Props) => {
           <EditOutlined />
         </ListItemIcon>
         <ListItemText primary="Edit Profile" />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton selected={selectedIndex === 1} onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         handleListItemClick(event, 0)
-        history('/apps/profiles/account/basic')
+        history('/apps/profiles/account/organisation')
         setSelectedIndex(1);
       }
       }>
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
-        <ListItemText primary="View Profile" />
+        <ListItemText primary="Account" />
       </ListItemButton>
       <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
         <ListItemIcon>

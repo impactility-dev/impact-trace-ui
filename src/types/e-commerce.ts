@@ -17,7 +17,7 @@ export type Products = {
   colors?: string[];
   popularity?: number;
   date?: number;
-  created: Date;
+  created: Date | string;
   isStock?: boolean;
   new?: number;
 };

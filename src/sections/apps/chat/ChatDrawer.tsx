@@ -191,8 +191,7 @@ function ChatDrawer({ handleDrawerOpen, openChatDrawer, setUser }: ChatDrawerPro
                 <Grid item xs zeroMinWidth>
                   <Stack sx={{ cursor: 'pointer', textDecoration: 'none' }} component={Link} to="/apps/profiles/user/personal">
                     <Typography align="left" variant="h5" color="textPrimary">
-                      {/* {user?.name} */}
-                      Impact Trace Admin
+                      {user?.name}
                     </Typography>
                     <Typography align="left" variant="caption" color="textSecondary">
                       {user?.role}

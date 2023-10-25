@@ -7,6 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // types
 import { CountryType, InvoiceList, InvoiceProps } from 'types/invoice';
+import { INVOICES } from 'data/invoices';
 
 const countries: CountryType[] = [
   { code: 'US', label: 'United States Dollar', currency: 'Dollar', prefix: '$' },
@@ -21,7 +22,7 @@ const initialState: InvoiceProps = {
   open: false,
   country: countries[0],
   countries: countries,
-  lists: [],
+  lists: INVOICES,
   list: null,
   error: null,
   alertPopup: false
@@ -105,8 +106,9 @@ export const { reviewInvoicePopup, customerPopup, toggleCustomerPopup, selectCou
 export function getInvoiceList() {
   return async () => {
     try {
-      const response = await axios.get('/api/invoice/list');
-      dispatch(invoice.actions.getLists(response.data.invoice));
+      // const response = await axios.get('/api/invoice/list');
+      const response = INVOICES;
+      dispatch(invoice.actions.getLists(response));
     } catch (error) {
       dispatch(invoice.actions.hasError(error));
     }

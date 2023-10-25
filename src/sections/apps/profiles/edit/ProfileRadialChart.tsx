@@ -39,7 +39,9 @@ const redialBarChartOptions = {
 
 // ==============================|| TOP CARD - RADIAL BAR CHART ||============================== //
 
-export interface ApexRedialBarChartProps extends ChartProps {}
+export interface ApexRedialBarChartProps extends ChartProps {
+  percentage: number;
+}
 
 const ProfileRadialChart = (props: ApexRedialBarChartProps) => {
   const theme = useTheme();
@@ -51,7 +53,7 @@ const ProfileRadialChart = (props: ApexRedialBarChartProps) => {
   const grey500 = theme.palette.grey[500];
   const grey200 = theme.palette.grey[200];
 
-  const [series] = useState<number[]>([30]);
+  const [series, serSeries] = useState<number[]>([30]);
   const [options, setOptions] = useState<ChartProps>(redialBarChartOptions);
 
   useEffect(() => {
@@ -77,7 +79,8 @@ const ProfileRadialChart = (props: ApexRedialBarChartProps) => {
         mode: mode === ThemeMode.DARK ? 'dark' : 'light'
       }
     }));
-  }, [mode, grey200, grey0, grey500, textPrimary, primary]);
+    serSeries([props.percentage]);
+  }, [mode, grey200, grey0, grey500, textPrimary, primary, props.percentage]);
 
   return (
     <Box id="chart" sx={{ bgcolor: 'transparent' }}>

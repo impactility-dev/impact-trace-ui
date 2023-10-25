@@ -39,24 +39,9 @@ const sidenav: NavItemType[] = [
   {
     id: 'products',
     title: <FormattedMessage id="products" />,
-    type: 'collapse',
+    type: 'item',
     icon: icons.ShoppingCartOutlined,
-    children: [
-      {
-        id: 'products',
-        title: <FormattedMessage id="Products" />,
-        type: 'item',
-        url: '/apps/products/product-list',
-        breadcrumbs: false
-      },
-      {
-        id: 'passport',
-        title: <FormattedMessage id="Passport" />,
-        type: 'item',
-        breadcrumbs: false
-      }
-    ]
-
+    url: '/apps/products/product-list',
   },
   {
     id: 'invertory',

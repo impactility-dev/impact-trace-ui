@@ -57,8 +57,11 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
         const serviceToken = window.localStorage.getItem('serviceToken');
         if (serviceToken && verifyToken(serviceToken)) {
           setSession(serviceToken);
-          const response = await axios.get('/api/account/me');
-          const { user } = response.data;
+          // const response = await axios.get('/api/account/me');
+          // const { user } = response.data;
+
+          const user = {id: '5e86809283e28b96d2d38537', email: 'admin@impacttrace.com', name: 'Impact Trace Admin'}
+
           dispatch({
             type: LOGIN,
             payload: {
@@ -82,17 +85,33 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
     init();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    const response = await axios.post('/api/account/login', { email, password });
-    const { serviceToken, user } = response.data;
-    setSession(serviceToken);
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLoggedIn: true,
-        user
-      }
-    });
+  const login = async (email?: string, password?: string, token?: string) => {
+
+    if (!token) {
+      const response = await axios.post('/api/account/login', { email, password });
+      const { serviceToken, user } = response.data;
+      setSession(serviceToken);
+      console.log('user',user);
+      dispatch({
+        type: LOGIN,
+        payload: {
+          isLoggedIn: true,
+          user
+        }
+      });
+    }
+    else {
+      const serviceToken = token;
+      const user = {id: '5e86809283e28b96d2d38537', email: 'admin@impacttrace.com', name: 'Impact Trace Admin'}
+      setSession(serviceToken);
+      dispatch({
+        type: LOGIN,
+        payload: {
+          isLoggedIn: true,
+          user
+        }
+      });
+    }
   };
 
   const register = async (email: string, password: string, firstName: string, lastName: string) => {
@@ -128,9 +147,9 @@ export const JWTProvider = ({ children }: { children: React.ReactElement }) => {
     dispatch({ type: LOGOUT });
   };
 
-  const resetPassword = async (email: string) => {};
+  const resetPassword = async (email: string) => { };
 
-  const updateProfile = () => {};
+  const updateProfile = () => { };
 
   if (state.isInitialized !== undefined && !state.isInitialized) {
     return <Loader />;

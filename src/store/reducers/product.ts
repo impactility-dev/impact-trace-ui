@@ -7,12 +7,13 @@ import { dispatch } from '../index';
 
 // types
 import { Address, DefaultRootStateProps, ProductsFilter } from 'types/e-commerce';
+import { PRODUCTS } from 'data/products';
 
 // ----------------------------------------------------------------------
 
 const initialState: DefaultRootStateProps['product'] = {
   error: null,
-  products: [],
+  products: PRODUCTS,
   product: null,
   relatedProducts: [],
   reviews: [],
@@ -78,8 +79,9 @@ export default slice.reducer;
 export function getProducts() {
   return async () => {
     try {
-      const response = await axios.get('/api/products/list');
-      dispatch(slice.actions.getProductsSuccess(response.data.products));
+      // const response = await axios.get('/api/products/list');
+      const response = PRODUCTS;
+      dispatch(slice.actions.getProductsSuccess(response));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -89,8 +91,8 @@ export function getProducts() {
 export function filterProducts(filter: ProductsFilter) {
   return async () => {
     try {
-      const response = await axios.post('/api/products/filter', { filter });
-      dispatch(slice.actions.filterProductsSuccess(response.data));
+      // const response = await axios.post('/api/products/filter', { filter });
+      // dispatch(slice.actions.filterProductsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
